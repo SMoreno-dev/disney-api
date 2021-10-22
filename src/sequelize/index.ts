@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 
-const password = process.env.PASS;
+const DB_URL = process.env.DB_URL;
 
 //Setting up db connection
-const sequelize = new Sequelize(`postgres://postgres:${password}@localhost:5432/disney`);
+const sequelize = new Sequelize(`${DB_URL}`);
 
 //Check connection
 const checkConnection = async() => {
