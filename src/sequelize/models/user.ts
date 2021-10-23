@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 
-export default (sequelize) => {
+export default (sequelize: any) => {
     //Extend Model class
     class User extends Model {}
 

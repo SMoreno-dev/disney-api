@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
-import User from './models/user'
+import User from './models/user';
+import Character from './models/character';
 
 //Env var
 const DB_URL = process.env.DB_URL;
@@ -13,7 +14,8 @@ type KeyOfDB = Extract<keyof Database, string>
 
 //Create Models
 const db: Database = {
-    User: User(sequelize)
+    User: User(sequelize),
+    Character: Character(sequelize)
 }
 
 //Associations
