@@ -27,6 +27,8 @@ export default (sequelize: any) => {
         sequelize,
         modelName: 'User'
     })
+
+    return User;
 }
 
 
