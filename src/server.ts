@@ -11,10 +11,10 @@ app.get('/', (req: Request, res: Response): void => {
 })
 
 app.use(cors);
-app.listen(port, (): void => console.log(`Server running on port ${port}`))
+app.listen(port, (): void => console.log(`Server running on port ${port}`));
 
 //Check sequelize connection
-const checkConnection = async() => {
+(async() => {
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
@@ -22,11 +22,9 @@ const checkConnection = async() => {
       } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
-} 
-checkConnection();
+})();
 
 //Syncronize all models
-const syncSequelize = async() => {
+(async() => {
     await sequelize.sync({ force: true });
-}
-syncSequelize();
+})();
