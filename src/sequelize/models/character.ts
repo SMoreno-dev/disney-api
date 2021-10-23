@@ -34,7 +34,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: 'User'
+        modelName: 'Character'
     })
 
     return Character;
