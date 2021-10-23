@@ -4,7 +4,7 @@ export default (sequelize: any) => {
     //Extend Model class
     class Character extends Model {}
 
-    //Initialize User
+    //Initialize Character
     Character.init({
         img: {
             type: DataTypes.STRING,

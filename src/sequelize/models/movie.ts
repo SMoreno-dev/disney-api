@@ -4,7 +4,7 @@ export default (sequelize: any) => {
     //Extend Model class
     class Movie extends Model {}
 
-    //Initialize User
+    //Initialize Movie
     Movie.init({
         img: {
             type: DataTypes.STRING,
