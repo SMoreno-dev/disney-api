@@ -25,7 +25,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: 'User'
+        modelName: User.constructor.name
     })
 
     return User;

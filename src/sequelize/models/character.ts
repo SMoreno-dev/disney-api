@@ -34,7 +34,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: 'Character'
+        modelName: Character.constructor.name
     })
 
     return Character;

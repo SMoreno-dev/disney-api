@@ -21,7 +21,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: 'Genre'
+        modelName: Genre.constructor.name
     })
 
     return Genre;

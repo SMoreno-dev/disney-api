@@ -33,7 +33,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: 'Movie'
+        modelName: Movie.constructor.name
     })
 
     return Movie;
