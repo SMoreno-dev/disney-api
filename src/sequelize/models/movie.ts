@@ -1,8 +1,16 @@
 import { DataTypes, Model } from 'sequelize';
 
+//Models type
+type Models = {[key: string]: any}
+
 export default (sequelize: any) => {
     //Extend Model class
-    class Movie extends Model {}
+    class Movie extends Model {
+        //Many-to-many association
+        static associate(models: Models) {
+            this.belongsToMany(models.Character, { through: 'Character_Movie'} );
+        }
+    }
 
     //Initialize Movie
     Movie.init({

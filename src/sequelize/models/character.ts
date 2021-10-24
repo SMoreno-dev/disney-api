@@ -6,10 +6,9 @@ type Models = {[key: string]: any}
 export default (sequelize: any) => {
     //Extend Model class
     class Character extends Model {
-        
         //Many-to-many association
         static associate(models: Models) {
-            this.belongsToMany(models.Movie, { through: 'Character_Movie' })
+            this.belongsToMany(models.Movie, { through: 'Character_Movie' });
         }
     }
 
