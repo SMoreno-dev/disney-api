@@ -9,6 +9,7 @@ export default (sequelize: any) => {
         //Many-to-many association
         static associate(models: Models) {
             this.belongsToMany(models.Character, { through: 'Character_Movie'} );
+            this.belongsToMany(models.Genre, { through: 'Movie_Genre' });
         }
     }
 
