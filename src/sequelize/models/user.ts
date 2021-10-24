@@ -6,6 +6,12 @@ export default (sequelize: any) => {
 
     //Initialize User
     User.init({
+        uid: {
+            type: DataTypes.UUIDV4,
+            allowNull: false,
+            defaultValue: sequelize.UUIDV4,
+            primaryKey: true
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
