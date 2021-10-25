@@ -42,8 +42,8 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: Movie.constructor.name
+        modelName: 'Movie'
     })
-
+    
     return Movie;
 }

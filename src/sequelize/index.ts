@@ -28,5 +28,6 @@ Object.keys(db).forEach((m: KeyOfDB) => {
         db[m].associate(db);
     }
 })
+db.sequelize = sequelize;
 
 export default db;

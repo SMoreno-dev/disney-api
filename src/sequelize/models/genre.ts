@@ -29,7 +29,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: Genre.constructor.name
+        modelName: 'Genre'
     })
 
     return Genre;

@@ -6,16 +6,11 @@ export default (sequelize: any) => {
 
     //Initialize User
     User.init({
-        uid: {
-            type: DataTypes.UUIDV4,
+        id: {
+            type: DataTypes.UUID,
             allowNull: false,
             defaultValue: sequelize.UUIDV4,
             primaryKey: true
-        },
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
         },
         email: {
             type: DataTypes.STRING,
@@ -31,7 +26,7 @@ export default (sequelize: any) => {
         }
     },{
         sequelize,
-        modelName: User.constructor.name
+        modelName: 'User'
     })
 
     return User;
