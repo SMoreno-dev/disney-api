@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { Sequelize } from "sequelize";
 import db, { sequelize } from "../sequelize";
+import bcrypt from "bcrypt";
 
 export default class Auth {
     static async register(req: Request, res: Response) {
@@ -15,21 +15,22 @@ export default class Auth {
         try {
             //Create user if it doesn't exist
             const [user, created] = await db.User.findOrCreate({
-                where: {email},
-                defaults: {password}, 
+                where: { email },
+                defaults: { password: await bcrypt.hash(password, 10) },
                 transaction: t
             });
 
             //COMMIT transaction
             await t.commit();
 
-            //If user doesn't exist, return new user
+            //If user exists...
             if(!created) {
                 return res.status(403).json({
                     message: `User with email '${email}' already exists.`
                 })
             }
 
+            //If user doesn't exist, create a new one and return the data
             return res.json({
                 message: `Created new user:`,
                 body: {
@@ -43,7 +44,7 @@ export default class Auth {
             //ROLLBACK transaction
             await t.rollback();
             console.log(error);
-            res.status(500);
+            res.status(500).json({message: 'Internal Server Error'});
             throw error;
         }
     }
