@@ -1,12 +1,12 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-
+import router from './routes/auth';
 import { sequelize } from './sequelize/index';
 
 const app: Application = express();
 const port = process.env.port;
 
-app.use(cors);
+app.use(cors());
 app.listen(port, (): void => console.log(`Server running on port ${port}`));
 
 //Routes
@@ -15,7 +15,7 @@ app.get('/', (req: Request, res: Response): void => {
 });
 
 //Auth
-app.use('/auth', require('./routes/auth'));
+app.use('/auth', router);
 
 //Check sequelize connection
 (async() => {
