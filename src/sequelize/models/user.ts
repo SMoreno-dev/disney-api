@@ -6,10 +6,10 @@ export default (sequelize: any) => {
 
     //Initialize User
     User.init({
-        id: {
+        uid: {
             type: DataTypes.UUID,
             allowNull: false,
-            defaultValue: sequelize.UUIDV4,
+            defaultValue: sequelize.literal('uuid_generate_v4()'),
             primaryKey: true
         },
         email: {
