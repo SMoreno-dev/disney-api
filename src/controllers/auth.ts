@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import db, { sequelize } from "../sequelize";
 import bcrypt from "bcrypt";
-import { cp } from "fs";
 
 export default class Auth {
     static async register(req: Request, res: Response) {

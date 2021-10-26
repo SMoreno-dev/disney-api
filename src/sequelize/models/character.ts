@@ -15,7 +15,7 @@ export default (sequelize: any) => {
     //Initialize Character
     Character.init({
         img: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             unique: true,
             validate: {
@@ -36,7 +36,7 @@ export default (sequelize: any) => {
             allowNull: false,
         },
         story: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             unique: true
         }
