@@ -1,4 +1,4 @@
-const movie = [
+const movieData = [
     {
         img: "https://m.media-amazon.com/images/M/MV5BNTI4ODQ1MzAzNV5BMl5BanBnXkFtZTgwMzU4NzMxMDE@._V1_.jpg",
         title: "Aladdin",
@@ -25,4 +25,4 @@ const movie = [
     }
 ]
 
-export default movie;
+export default movieData;

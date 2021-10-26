@@ -1,4 +1,4 @@
-const genre = [
+const genreData = [
     {
         img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Drama-icon.svg/220px-Drama-icon.svg.png",
         name: "Drama"
@@ -25,4 +25,4 @@ const genre = [
     }
 ]
 
-export default genre;
+export default genreData;

@@ -1,4 +1,4 @@
-const character = [
+const characterData = [
     {
         img: "https://static.wikia.nocookie.net/disney/images/8/85/Aladdin_%28personaje%29.png/revision/latest?cb=20160318010334&path-prefix=es",
         name: "Aladdin",
@@ -29,4 +29,4 @@ const character = [
     }
 ]
 
-export default character;
+export default characterData;
