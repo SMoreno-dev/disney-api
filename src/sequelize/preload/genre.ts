@@ -25,4 +25,11 @@ const genreData = [
     }
 ]
 
-export default genreData;
+export default (model: any) => {
+    genreData.map(g => {
+        model.create({
+            img: g.img,
+            name: g.name
+        })
+    })
+}

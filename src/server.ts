@@ -22,3 +22,8 @@ app.use('/auth', router);
 (async(): Promise<void> => {
     await db.sequelize.sync({ force: true });
 })();
+
+//Preload data
+(async(): Promise<void> => {
+    Object.keys(db.preload).forEach(p => p);
+})();

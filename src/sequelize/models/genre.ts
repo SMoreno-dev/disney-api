@@ -17,10 +17,7 @@ export default (sequelize: any) => {
         img: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
-            validate: {
-                isUrl: true
-            }
+            unique: true
         },
         name: {
             type: DataTypes.STRING,

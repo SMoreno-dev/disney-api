@@ -29,4 +29,20 @@ const characterData = [
     }
 ]
 
-export default characterData;
+export default (model: any) => {
+    characterData.map(async(c) => {
+        try {
+            console.log('CREATING:', c)
+            await model.create({
+                img: c.img,
+                name: c.name,
+                age: c.age,
+                weight: c.weight,
+                story: c.story
+            })
+
+        } catch (error) {
+            console.log('ERROR!', error)
+        }
+    })
+}

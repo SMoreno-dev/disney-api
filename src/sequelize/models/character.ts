@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+import preload from '../preload/character';
 
 //Models type
 type Models = {[key: string]: any}
@@ -17,13 +18,10 @@ export default (sequelize: any) => {
         img: {
             type: DataTypes.TEXT,
             allowNull: false,
-            unique: true,
-            validate: {
-                isUrl: true
-            }
+            unique: true
         },
         name: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             unique: true
         },
@@ -44,6 +42,9 @@ export default (sequelize: any) => {
         sequelize,
         modelName: 'Character'
     })
+
+    //Preload data
+    preload(Character);
 
     return Character;
 }

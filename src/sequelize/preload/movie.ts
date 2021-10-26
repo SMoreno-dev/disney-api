@@ -25,4 +25,13 @@ const movieData = [
     }
 ]
 
-export default movieData;
+export default (model: any) => {
+    movieData.map(m => {
+        model.create({
+            img: m.img,
+            title: m.title,
+            created: m.created,
+            rating: m.rating
+        })
+    })
+}
