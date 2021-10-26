@@ -18,7 +18,10 @@ export default (sequelize: any) => {
         img: {
             type: DataTypes.TEXT,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isUrl: true
+            }
         },
         name: {
             type: DataTypes.TEXT,
