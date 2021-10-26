@@ -42,9 +42,5 @@ export default (sequelize: any) => {
         sequelize,
         modelName: 'Character'
     })
-
-    //Preload data
-    preload(Character);
-
     return Character;
 }

@@ -29,10 +29,10 @@ const characterData = [
     }
 ]
 
-export default (model: any) => {
+export default async(model: any) => {
     characterData.map(async(c) => {
         try {
-            console.log('CREATING:', c)
+            console.log('CREATING:', c.name)
             await model.create({
                 img: c.img,
                 name: c.name,

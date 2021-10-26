@@ -2,6 +2,9 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import router from './routes/auth';
 import db from './sequelize/index';
+import characterData from "./sequelize/preload/character";
+import movieData from "./sequelize/preload/movie";
+import genreData from "./sequelize/preload/genre";
 
 const app: Application = express();
 const port = process.env.port;
@@ -18,12 +21,10 @@ app.get('/', (req: Request, res: Response): void => {
 //Auth
 app.use('/auth', router);
 
-//Sync
+//Sync and preload
 (async(): Promise<void> => {
-    await db.sequelize.sync({ force: true });
-})();
-
-//Preload data
-(async(): Promise<void> => {
-    Object.keys(db.preload).forEach(p => p);
+    const sync = await db.sequelize.sync({ force: true });
+    if(sync !== undefined) {
+        await characterData(db.Character);
+    }
 })();
