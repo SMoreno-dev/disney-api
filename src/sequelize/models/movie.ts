@@ -29,7 +29,7 @@ export default (sequelize: any) => {
             unique: true
         },
         created: {
-            type: DataTypes.DATE,
+            type: DataTypes.DATEONLY,
             allowNull: false
         },
         rating: {

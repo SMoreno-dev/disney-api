@@ -1,4 +1,4 @@
-export const character = [
+const character = [
     {
         img: "https://static.wikia.nocookie.net/disney/images/8/85/Aladdin_%28personaje%29.png/revision/latest?cb=20160318010334&path-prefix=es",
         name: "Aladdin",
@@ -28,3 +28,5 @@ export const character = [
         story: "Nemo is a young clownfish who lives with his father, Marlin in a sea anemone. Before he hatched from his egg, his mother, Coral and the other eggs were killed in an attack by a barracuda."
     }
 ]
+
+export default character;
