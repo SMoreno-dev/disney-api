@@ -26,5 +26,7 @@ app.use('/auth', router);
     const sync = await db.sequelize.sync({ force: true });
     if(sync !== undefined) {
         await characterData(db.Character);
+        await genreData(db.Genre);
+        await movieData(db.Movie);
     }
 })();

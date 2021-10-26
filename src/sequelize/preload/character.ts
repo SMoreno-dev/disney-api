@@ -32,7 +32,7 @@ const characterData = [
 export default async(model: any) => {
     characterData.map(async(c) => {
         try {
-            console.log('CREATING:', c.name)
+            console.log('INSERTING Character:', c.name);
             await model.create({
                 img: c.img,
                 name: c.name,

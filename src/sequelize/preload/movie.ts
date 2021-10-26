@@ -25,13 +25,18 @@ const movieData = [
     }
 ]
 
-export default (model: any) => {
-    movieData.map(m => {
-        model.create({
-            img: m.img,
-            title: m.title,
-            created: m.created,
-            rating: m.rating
+export default async(model: any) => {
+    try {
+        movieData.map(async(m) => {
+            console.log('INSERTING Movie:', m.title);
+            await model.create({
+                img: m.img,
+                title: m.title,
+                created: m.created,
+                rating: m.rating
+            })
         })
-    })
+    } catch (error) {
+        console.log('ERROR!', error)
+    }
 }

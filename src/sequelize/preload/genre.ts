@@ -25,11 +25,16 @@ const genreData = [
     }
 ]
 
-export default (model: any) => {
-    genreData.map(g => {
-        model.create({
-            img: g.img,
-            name: g.name
+export default async(model: any) => {
+    try {
+        genreData.map(async(g) => {
+            console.log('INSERTING Genre:', g.name);
+            await model.create({
+                img: g.img,
+                name: g.name
+            })
         })
-    })
+    } catch (error) {
+        console.log('ERROR!', error)
+    }
 }
