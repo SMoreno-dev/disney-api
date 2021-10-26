@@ -24,3 +24,5 @@ const movie = [
         rating: 5
     }
 ]
+
+export default movie;
