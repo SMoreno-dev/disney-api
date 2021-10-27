@@ -1,12 +1,13 @@
 import express from "express";
+import validAuthInfo from "../middleware/validAuthInfo";
 import Auth from "../controllers/auth";
 
 const router = express.Router()
 
 //Register
-router.post('/register', Auth.register);
+router.post('/register', validAuthInfo, Auth.register);
 
 //Login
-router.post('/login', Auth.login);
+router.post('/login', validAuthInfo, Auth.login);
 
 export default router;
