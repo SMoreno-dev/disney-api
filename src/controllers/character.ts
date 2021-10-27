@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, response, Response } from "express";
 import db, { sequelize } from "../sequelize";
 
 export default class Character {
@@ -64,26 +64,12 @@ export default class Character {
 
     //Create a character
     static async create(req: Request, res: Response) {
-      let { img, name, age, weight, story, movie } = req.body;
-      
+      let { img, name, age, weight, story } = req.body;
+
       //BEGIN transaction
       const t = await sequelize.transaction();
 
       try {
-        //Look for movie
-        const characterMovie = await db.Movie.findOne({
-          where: {
-              title: movie
-          }
-        })
-
-        //If movie does not exist...
-        if(!characterMovie) {
-          //ROLLBACK
-          t.rollback()
-          return res.status(404).json({ message: 'That movie does not exist. You can create a new movie at /movies'})
-        }        
-
         //Create character
         const [char, created] = await db.Character.findOrCreate({
           where: {
@@ -101,9 +87,6 @@ export default class Character {
 
         //COMMIT transaction
         await t.commit();
-        
-        //Create Association
-        await char.addMovie(characterMovie);
 
         //If character already exists...
         if(!created) {
@@ -132,7 +115,6 @@ export default class Character {
         res.status(500).json({message: 'Internal Server Error'});
         throw error;       
       }
-
     }
 
     //Builds where object only if movie query exists
