@@ -15,12 +15,15 @@ export default (sequelize: any) => {
     //Initialize Genre
     Genre.init({
         img: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isUrl: true
+            }
         },
         name: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             unique: true
         }

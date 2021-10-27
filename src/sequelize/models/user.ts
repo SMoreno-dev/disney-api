@@ -13,7 +13,7 @@ export default (sequelize: any) => {
             primaryKey: true
         },
         email: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             unique: true,
             validate: {
@@ -21,7 +21,7 @@ export default (sequelize: any) => {
             }
         },
         password: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         }
     },{

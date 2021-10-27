@@ -16,12 +16,15 @@ export default (sequelize: any) => {
     //Initialize Movie
     Movie.init({
         img: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
-            unique: true
+            unique: true,
+            validate: {
+                isUrl: true
+            }
         },
         title: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             unique: true
         },
