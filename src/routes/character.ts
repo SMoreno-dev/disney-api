@@ -14,6 +14,6 @@ router.get('/', Character.list);
 router.post('/', validCharacterInfo, Character.create);
 
 //Update character
-router.put('/');
+router.put('/:id');
 
 export default router;
