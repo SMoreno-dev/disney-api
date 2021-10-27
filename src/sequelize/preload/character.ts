@@ -38,12 +38,6 @@ export default async(model: any) => {
     characterData.map(async(c) => {
         try {
             console.log('INSERTING Character:', c.name);
-            //Find associated movie
-            const movie = await db.Movie.findOne({
-                where: {
-                    title: c.movie
-                }
-            })
             //Create Character
             const char = await model.create({
                 img: c.img,
@@ -53,6 +47,11 @@ export default async(model: any) => {
                 story: c.story
             })
             //Create Association
+            const movie = await db.Movie.findOne({
+                where: {
+                    title: c.movie
+                }
+            })
             await char.addMovie(movie);
 
 

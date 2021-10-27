@@ -19,7 +19,7 @@ export default class Character {
                     age: c.age,
                     weight: c.weight,
                     story: c.story,
-                    movies: c.movies
+                    movies: c.Movies[0].title
                 }))
             })
         } catch (error) {
