@@ -1,8 +1,9 @@
 import express from "express";
+import Character from "../controllers/character";
 
 const router = express.Router()
 
 //Character List
-router.get('/characters')
+router.get('/', Character.list);
 
 export default router;

@@ -13,7 +13,7 @@ const movieData = [
     },
     {
         img: "https://static.wikia.nocookie.net/disney/images/5/56/Snow-White-and-the-Seven-Dwarfs-Poster.jpg/revision/latest/scale-to-width-down/250?cb=20160923160034&path-prefix=es",
-        title: "Snow White and the Seven dwarfs",
+        title: "Snow White and the Seven Dwarfs",
         created: "1938-01-26",
         rating: 5
     },
