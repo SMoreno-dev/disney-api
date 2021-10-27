@@ -1,6 +1,12 @@
+//Dependencies
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import router from './routes/auth';
+
+//Routes
+import authRoute from './routes/auth';
+import characterRoute from './routes/character';
+
+//Sequelize
 import db from './sequelize/index';
 import characterData from "./sequelize/preload/character";
 import movieData from "./sequelize/preload/movie";
@@ -12,15 +18,16 @@ const port = process.env.port;
 app.use(cors());
 app.use(express.json());
 app.listen(port, (): void => console.log(`Server running on port ${port}`));
-
-//Routes
 app.get('/', (req: Request, res: Response): void => {
     res.send('<h1>Server Running</h1>');
 });
 
-//Auth
-app.use('/auth', router);
+//Auth Route
+app.use('/auth', authRoute);
 
+//Character Route
+app.use('/characters', characterRoute);
+   
 //Sync and preload
 (async(): Promise<void> => {
     const sync = await db.sequelize.sync({ force: true });
