@@ -4,6 +4,6 @@ import Character from "../controllers/character";
 const router = express.Router()
 
 //Character List
-router.get('/', Character.list);
+router.get('/', Character.find);
 
 export default router;
