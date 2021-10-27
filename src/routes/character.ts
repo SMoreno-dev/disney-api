@@ -13,4 +13,7 @@ router.get('/', Character.list);
 //Create character
 router.post('/', validCharacterInfo, Character.create);
 
+//Update character
+router.put('/');
+
 export default router;
