@@ -1,9 +1,34 @@
 import { Request, Response } from "express";
-import { Model } from "sequelize";
 import db from "../sequelize";
 
 export default class Character {
     static async find(req: Request, res: Response) {
+      try {
+        //Get a character by id
+        const character = await db.Character.findOne({
+          where: { id: req.params.id },
+          include: db.Movie
+        })
+
+        //If no character is found...
+        if(!character) {
+          return res.status(404).json({message: 'Character not found'});
+        }
+
+        //Otherwise, return the character
+        res.json({
+          message: 'Character Information:',
+          body: Character.buildCharacters(character)
+        })
+
+      } catch (error) {
+          console.log(error);
+          res.status(500).json({message: 'Internal Server Error'});
+          throw error;
+      }
+    }
+
+    static async list(req: Request, res: Response) {
         try {
             //Look for character matching queries
             const characters = await db.Character.findAll({
@@ -18,7 +43,7 @@ export default class Character {
           
             //If no characters are found...
             if(!characters[0]) {
-                res.status(404).json({message: 'No characters found'});
+                return res.status(404).json({message: 'No characters found'});
             }
 
             //Otherwise, return characters
