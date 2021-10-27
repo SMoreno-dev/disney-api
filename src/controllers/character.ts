@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-import db from "../sequelize";
+import db, { sequelize } from "../sequelize";
 
 export default class Character {
+
+    //Find a single character by id
     static async find(req: Request, res: Response) {
       try {
         //Get a character by id
@@ -28,6 +30,7 @@ export default class Character {
       }
     }
 
+    //Find one or more characters by name, age, or movie
     static async list(req: Request, res: Response) {
         try {
             //Look for character matching queries
@@ -57,6 +60,79 @@ export default class Character {
             res.status(500).json({message: 'Internal Server Error'});
             throw error;
         }
+    }
+
+    //Create a character
+    static async create(req: Request, res: Response) {
+      let { img, name, age, weight, story, movie } = req.body;
+      
+      //BEGIN transaction
+      const t = await sequelize.transaction();
+
+      try {
+        //Look for movie
+        const characterMovie = await db.Movie.findOne({
+          where: {
+              title: movie
+          }
+        })
+
+        //If movie does not exist...
+        if(!characterMovie) {
+          //ROLLBACK
+          t.rollback()
+          return res.status(404).json({ message: 'That movie does not exist. You can create a new movie at /movies'})
+        }        
+
+        //Create character
+        const [char, created] = await db.Character.findOrCreate({
+          where: {
+            name
+          },
+          defaults: {
+            img,
+            name,
+            age,
+            weight,
+            story
+          },
+          transaction: t
+        })
+
+        //COMMIT transaction
+        await t.commit();
+        
+        //Create Association
+        await char.addMovie(characterMovie);
+
+        //If character already exists...
+        if(!created) {
+          return res.status(403).json({
+            message: `Character with name '${name}' already exists.`
+          })
+        }
+
+        //Otherwise, return character
+        res.json({
+          message: 'Character successfully created:',
+          body: {
+            id: char.id,
+            img: char.img,
+            name: char.name,
+            age: char.age,
+            weight: char. weight,
+            story: char.story
+          }
+        })
+
+      } catch (error) {
+        //ROLLBACK transaction
+        await t.rollback();
+        console.log(error);
+        res.status(500).json({message: 'Internal Server Error'});
+        throw error;       
+      }
+
     }
 
     //Builds where object only if movie query exists
