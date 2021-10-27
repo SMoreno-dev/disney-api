@@ -1,5 +1,6 @@
 import express from "express";
 import Character from "../controllers/character";
+import validCharacterInfo from "../middleware/validCharacterInfo";
 
 const router = express.Router()
 
@@ -10,6 +11,6 @@ router.get('/:id', Character.find);
 router.get('/', Character.list);
 
 //Create character
-router.post('/', Character.create);
+router.post('/', validCharacterInfo, Character.create);
 
 export default router;
