@@ -9,5 +9,7 @@ router.get('/:id', Character.find);
 //Character List
 router.get('/', Character.list);
 
+//Create character
+router.post('/');
 
 export default router;
