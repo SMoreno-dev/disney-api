@@ -10,7 +10,7 @@ const characterRequest =  {
 
 export default class Validator {
     //Auth route middleware
-    static async auth(req: Request, res: Response, next: NextFunction) {
+    static auth(req: Request, res: Response, next: NextFunction) {
         const { email, password }  = req.body;
 
         const validEmail = (userEmail: string) => {
@@ -28,7 +28,7 @@ export default class Validator {
     }
 
     //Character POST endpoint middleware
-    static async createCharacter(req: Request, res: Response, next: NextFunction) {
+    static createCharacter(req: Request, res: Response, next: NextFunction) {
         const { img, name, age, weight, story }  = req.body;
             
         if (![img, name, age, weight, story].every(Boolean)) {
@@ -41,7 +41,7 @@ export default class Validator {
     }
 
     //Character PUT endpoint middleware
-    static async updateCharacter(req: Request, res: Response, next: NextFunction) {
+    static updateCharacter(req: Request, res: Response, next: NextFunction) {
         const { img, name, age, weight, story }  = req.body;
             
         if (![img, name, age, weight, story].some(Boolean)) {
