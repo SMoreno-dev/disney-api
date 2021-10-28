@@ -88,7 +88,8 @@ export default class Character {
               include: [
                 { 
                   model: db.Movie, 
-                  where: CharacterUtil.buildIncludeWhereObject(req.query)
+                  where: CharacterUtil.buildIncludeWhereObject(req.query),
+                  required: false
                 }
               ]
             });
