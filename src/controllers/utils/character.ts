@@ -25,7 +25,7 @@ export default class CharacterUtil {
         
         //Builds an object for a character
         static buildCharacters(c: any) {
-          const mapOverMovies = () => c.Movies.map((t: any) => t.title);
+          const getTitles = () => c.Movies.map((t: any) => t.title);
           const object: any = {
             id: c.id,
             img: c.img,
@@ -36,7 +36,7 @@ export default class CharacterUtil {
             movies: []
           }
           if(c.Movies) {
-            object.movies = mapOverMovies();
+            object.movies = getTitles();
           }
           return object;
         }
