@@ -32,8 +32,8 @@ const movieData = [
 ]
 
 export default async(model: any) => {
-    movieData.map(async(m) => {
-        try {
+    try {
+        movieData.map(async(m) => {
             console.log('INSERTING Movie:', m.title);
             const movie = await model.create({
             img: m.img,
@@ -51,10 +51,9 @@ export default async(model: any) => {
                 })
                 await movie.addGenre(genre);   
             })
-        } catch (error) {
-            console.log('ERROR!', error);
-            throw error;
-        }
-
-    })  
+        })  
+    } catch (error) {
+        console.log('ERROR!', error);
+        throw error;
+    }
 }

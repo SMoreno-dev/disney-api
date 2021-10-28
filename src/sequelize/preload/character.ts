@@ -35,8 +35,8 @@ const characterData = [
 ]
 
 export default async(model: any) => {
-    characterData.map(async(c) => {
-        try {
+    try {
+        characterData.map(async(c) => {
             console.log('INSERTING Character:', c.name);
             //Create Character
             const char = await model.create({
@@ -57,9 +57,9 @@ export default async(model: any) => {
                 await char.addMovie(movie);
             })
             
-        } catch (error) {
-            console.log('ERROR!', error);
-            throw error;
-        }
-    })
+        })
+    } catch (error) {
+        console.log('ERROR!', error);
+        throw error;
+    }
 }
