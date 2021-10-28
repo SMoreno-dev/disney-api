@@ -35,8 +35,9 @@ export default class CharacterUtil {
             story: c.story,
             movies: []
           }
-          if(c.Movies === undefined) return object;
-          object.movies = mapOverMovies();
+          if(c.Movies) {
+            object.movies = mapOverMovies();
+          }
           return object;
         }
 
