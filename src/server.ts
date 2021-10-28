@@ -32,8 +32,8 @@ app.use('/characters', characterRoute);
 (async(): Promise<void> => {
     const sync = await db.sequelize.sync({ force: true });
     if(sync !== undefined) {
+        await genreData(db.Genre);
         await movieData(db.Movie);
         await characterData(db.Character);
-        await genreData(db.Genre);
     }
 })();
