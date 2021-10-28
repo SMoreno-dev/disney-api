@@ -1,6 +1,6 @@
 import express from "express";
 import Character from "../controllers/character";
-import validCharacterInfo from "../middleware/validCharacterInfo";
+import Validator from "../middleware/validator";
 
 const router = express.Router()
 
@@ -11,9 +11,9 @@ router.get('/:id', Character.find);
 router.get('/', Character.list);
 
 //Create character
-router.post('/', validCharacterInfo.create, Character.create);
+router.post('/', Validator.createCharacter, Character.create);
 
 //Update character
-router.put('/:id', Character.update);
+router.put('/:id', Validator.updateCharacter, Character.update);
 
 export default router;

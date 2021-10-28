@@ -121,6 +121,19 @@ export default class Character {
       const t = await sequelize.transaction();
 
       try {
+        //Make sure character exists
+        const findCharacter = await db.Character.findOne({
+          where: { id }
+        })
+
+        //If character does not exist...
+        if(!findCharacter) {
+          //ROLLBACK
+          t.rollback()
+          return res.status(404).json({ message: 'Character does not exist '});
+        }
+
+        //Update character
         const updateChar = await db.Character.update(
           CharacterUtil.buildUpdateObject(req.body), 
           { 
@@ -137,10 +150,10 @@ export default class Character {
         //COMMIT
         await t.commit();
         
-        //Otherwise, return character
-        return res.json({
+        //Return character
+        res.json({
           message: 'Character succesfully updated',
-          body: updateChar[1].map(CharacterUtil.buildCharacters)
+          body: CharacterUtil.buildCharacters(updateChar[1][0])
         })
 
       } catch (error) {
