@@ -5,12 +5,13 @@ import cors from 'cors';
 //Routes
 import authRoute from './routes/auth';
 import characterRoute from './routes/character';
+import movieRoute from './routes/movie';
 
 //Sequelize
 import db from './sequelize/index';
-import characterData from "./sequelize/preload/character";
-import movieData from "./sequelize/preload/movie";
-import genreData from "./sequelize/preload/genre";
+import loadGenres from "./sequelize/preload/genre";
+import loadMovies from "./sequelize/preload/movie";
+import loadCharacters from "./sequelize/preload/character";
 
 const app: Application = express();
 const port = process.env.port;
@@ -27,13 +28,16 @@ app.use('/auth', authRoute);
 
 //Character Route
 app.use('/characters', characterRoute);
-   
+
+//Movie Route
+app.use('/movies', movieRoute);
+
 //Sync and preload
 (async(): Promise<void> => {
     const sync = await db.sequelize.sync({ force: true });
     if(sync !== undefined) {
-        await genreData(db.Genre);
-        await movieData(db.Movie);
-        await characterData(db.Character);
+        await loadGenres(db.Genre);
+        await loadMovies(db.Movie);
+        await loadCharacters(db.Character);
     }
 })();
