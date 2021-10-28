@@ -13,11 +13,10 @@ router.get('/:id', Character.find);
 //Read character List
 router.get('/', Character.list);
 
-
 //Update character
 router.put('/:id', Validator.updateCharacter, Character.update);
 
 //Delete Character
-router.delete('/:id');
+router.delete('/:id', Character.delete);
 
 export default router;

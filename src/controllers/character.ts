@@ -130,7 +130,7 @@ export default class Character {
         if(!findCharacter) {
           //ROLLBACK
           t.rollback()
-          return res.status(404).json({ message: 'Character does not exist '});
+          return res.status(404).json({ message: 'Character does not exist.'});
         }
 
         //Update character
@@ -144,6 +144,7 @@ export default class Character {
 
         //If character wasn't updated...
         if(!updateChar) {
+          t.rollback();
           return res.status(500).json({ message: 'Internal Server Error updating character' });
         }
 
@@ -155,6 +156,52 @@ export default class Character {
           message: 'Character succesfully updated',
           body: CharacterUtil.buildCharacters(updateChar[1][0])
         })
+
+      } catch (error) {
+        //ROLLBACK
+        await t.rollback();
+        console.log(error);
+        res.status(500).json({message: 'Internal Server Error'});
+        throw error;
+      }
+    }
+
+    //Delete a character
+    static async delete(req: Request, res: Response) {
+      const { id } = req.params;
+      
+      //BEGIN transaction
+      const t = await sequelize.transaction();
+
+      try {
+        //Make sure character exists
+        const findCharacter = await db.Character.findOne({
+          where: { id }
+        })
+
+        //If character does not exist...
+        if(!findCharacter) {
+          //ROLLBACK
+          t.rollback()
+          return res.status(404).json({ message: 'Character does not exist.'});
+        }
+
+        //Delete character
+        const deleteChar = await db.Character.destroy({
+          where: { id }
+        })
+
+        //If character wasn't deleted...
+        if(!deleteChar) {
+          t.rollback()
+          return res.status(500).json({ message: 'Internal Server Error deleting character' });
+        }
+
+        //COMMIT
+        await t.commit()
+
+        //Return message
+        res.json({ message: `Character '${findCharacter.name}' with id of '${id}' successfully deleted.`})
 
       } catch (error) {
         //ROLLBACK

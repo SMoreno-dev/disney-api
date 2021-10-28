@@ -32,7 +32,7 @@ export default class Validator {
         const { img, name, age, weight, story }  = req.body;
             
         if (![img, name, age, weight, story].every(Boolean)) {
-            return res.status(500).json({ 
+            return res.status(400).json({ 
                 message: "Looks like some data is missing. Your request should look similar to this:",
                 requestExample: characterRequest
             });
@@ -40,12 +40,12 @@ export default class Validator {
         next();
     }
 
-    //Character PUST endpoint middleware
+    //Character PUT endpoint middleware
     static async updateCharacter(req: Request, res: Response, next: NextFunction) {
         const { img, name, age, weight, story }  = req.body;
             
         if (![img, name, age, weight, story].some(Boolean)) {
-            return res.status(500).json({ 
+            return res.status(400).json({ 
                 message: "Looks like some data is missing. Your request should include at least one of these fields:",
                 requestExample: characterRequest
             });
