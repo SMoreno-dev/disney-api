@@ -63,6 +63,5 @@ export default async(model: any) => {
         //ROLLBACK
         await t.rollback();
         console.log('ERROR!', error);
-        throw error;
     }
 }

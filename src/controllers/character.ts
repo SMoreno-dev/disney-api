@@ -50,7 +50,6 @@ export default class Character {
         await t.rollback();
         console.log(error);
         res.status(500).json({message: 'Internal Server Error'});
-        throw error;       
       }
     }    
 
@@ -77,7 +76,6 @@ export default class Character {
       } catch (error) {
           console.log(error);
           res.status(500).json({message: 'Internal Server Error'});
-          throw error;
       }
     }
 
@@ -107,9 +105,8 @@ export default class Character {
             });
 
         } catch (error) {
-            console.log(error);
             res.status(500).json({message: 'Internal Server Error'});
-            throw error;
+            console.log(error);
         }
     }
 
@@ -162,7 +159,6 @@ export default class Character {
         await t.rollback();
         console.log(error);
         res.status(500).json({message: 'Internal Server Error'});
-        throw error;
       }
     }
 
@@ -208,7 +204,6 @@ export default class Character {
         await t.rollback();
         console.log(error);
         res.status(500).json({message: 'Internal Server Error'});
-        throw error;
       }
     }
 }

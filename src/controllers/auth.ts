@@ -43,9 +43,8 @@ export default class Auth {
         } catch (error) {
             //ROLLBACK transaction
             await t.rollback();
-            console.log(error);
             res.status(500).json({message: 'Internal Server Error'});
-            throw error;
+            console.log(error);
         }
     }
 
@@ -80,9 +79,8 @@ export default class Auth {
             })
 
         } catch (error) {
-            console.log(error);
             res.status(500).json({message: 'Internal Server Error'});
-            throw error;
+            console.log(error);
         }
     }
 }

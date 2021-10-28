@@ -25,20 +25,19 @@ export default class CharacterUtil {
         
         //Builds an object for a character
         static buildCharacters(c: any) {
-          const movies = () => {
-            if(c.Movies === undefined) return;
-            return c.Movies.map((t: any) => t.title);
-            
-          }
-          return {
+          const mapOverMovies = () => c.Movies.map((t: any) => t.title);
+          const object: any = {
             id: c.id,
             img: c.img,
             name: c.name,
             age: c.age,
             weight: c.weight,
             story: c.story,
-            movies: movies()
-          };
+            movies: []
+          }
+          if(c.Movies === undefined) return object;
+          object.movies = mapOverMovies();
+          return object;
         }
 
         //Builds where object for update method
