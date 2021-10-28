@@ -99,12 +99,12 @@ export default class Character {
         res.json({
           message: 'Character successfully created:',
           body: {
-            id: char.id,
+            // id: char.id,
             img: char.img,
             name: char.name,
-            age: char.age,
-            weight: char. weight,
-            story: char.story
+            // age: char.age,
+            // weight: char. weight,
+            // story: char.story
           }
         })
 
