@@ -1,3 +1,5 @@
+import { sequelize } from "..";
+
 const genreData = [
     {
         img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Drama-icon.svg/220px-Drama-icon.svg.png",
@@ -26,6 +28,9 @@ const genreData = [
 ]
 
 export default async(model: any) => {
+    //BEGIN
+    const t = await sequelize.transaction();
+
     try {
         genreData.map(async(g) => {
             console.log('INSERTING Genre:', g.name);
@@ -34,7 +39,12 @@ export default async(model: any) => {
                 name: g.name
             })
         })
+        //COMMIT
+        await t.commit();
+
     } catch (error) {
+        //ROLLBACK
+        await t.rollback();
         console.log('ERROR!', error)
     }
 }

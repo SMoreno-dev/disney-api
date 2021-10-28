@@ -1,4 +1,4 @@
-import db from "..";
+import db, { sequelize } from "..";
 
 const movieData = [
     {
@@ -32,6 +32,9 @@ const movieData = [
 ]
 
 export default async(model: any) => {
+    //BEGIN
+    const t = await sequelize.transaction();
+
     try {
         movieData.map(async(m) => {
             console.log('INSERTING Movie:', m.title);
@@ -52,7 +55,13 @@ export default async(model: any) => {
                 await movie.addGenre(genre);   
             })
         })  
+
+        //COMMIT
+        await t.commit();
+
     } catch (error) {
+        //ROLLBACK
+        await t.rollback();
         console.log('ERROR!', error);
         throw error;
     }
