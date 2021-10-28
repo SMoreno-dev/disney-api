@@ -86,7 +86,7 @@ export default class Character {
         try {
             //Look for character matching queries
             const characters = await db.Character.findAll({
-              where: CharacterUtil.buildWhereObject(req.query),
+              where: CharacterUtil.buildListWhereObject(req.query),
               include: [
                 { 
                   model: db.Movie, 
@@ -113,4 +113,42 @@ export default class Character {
         }
     }
 
+    //Update a character
+    static async update(req: Request, res: Response) {
+      const { id } = req.params;
+      
+      //BEGIN transaction
+      const t = await sequelize.transaction();
+
+      try {
+        const updateChar = await db.Character.update(
+          CharacterUtil.buildUpdateObject(req.body), 
+          { 
+            where: { id },
+            include: {model: db.Movie},
+            returning: true
+          })
+
+        //If character wasn't updated...
+        if(!updateChar) {
+          return res.status(500).json({ message: 'Internal Server Error updating character' });
+        }
+
+        //COMMIT
+        await t.commit();
+        
+        //Otherwise, return character
+        return res.json({
+          message: 'Character succesfully updated',
+          body: updateChar[1].map(CharacterUtil.buildCharacters)
+        })
+
+      } catch (error) {
+        //ROLLBACK
+        await t.rollback();
+        console.log(error);
+        res.status(500).json({message: 'Internal Server Error'});
+        throw error;
+      }
+    }
 }

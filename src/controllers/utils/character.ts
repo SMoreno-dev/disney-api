@@ -10,7 +10,7 @@ export default class CharacterUtil {
       }
   
       //Builds object if name or age queries exist
-      static buildWhereObject(query: any) {
+      static buildListWhereObject(query: any) {
           let where: any = {};
           if(query.name) {
             where.name = query.name
@@ -25,6 +25,11 @@ export default class CharacterUtil {
         
         //Builds an object for a character
         static buildCharacters(c: any) {
+          const movies = () => {
+            if(c.Movies === undefined) return;
+            return c.Movies.map((t: any) => t.title);
+            
+          }
           return {
             id: c.id,
             img: c.img,
@@ -32,7 +37,16 @@ export default class CharacterUtil {
             age: c.age,
             weight: c.weight,
             story: c.story,
-            movies: c.Movies.map((t: any) => t.title)
+            movies: movies()
           };
+        }
+
+        //Builds where object for update method
+        static buildUpdateObject(requestObject: any) {
+            let obj: any = {}
+            for (const [key, value] of Object.entries(requestObject)) {
+              obj[key] = value
+            }
+            return obj;
         }
 }
