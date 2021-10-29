@@ -5,18 +5,28 @@ import Validator from "../middleware/validator";
 const router = express.Router();
 
 //Create character
-router.post("/", Validator.createCharacter, Character.create);
+router.post(
+  "/",
+  Validator.validateToken,
+  Validator.createCharacter,
+  Character.create
+);
 
 //Read character by id
-router.get("/:id", Character.find);
+router.get("/:id", Validator.validateToken, Character.find);
 
 //Read character List
-router.get("/", Character.list);
+router.get("/", Validator.validateToken, Character.list);
 
 //Update character
-router.put("/:id", Validator.updateCharacter, Character.update);
+router.put(
+  "/:id",
+  Validator.validateToken,
+  Validator.updateCharacter,
+  Character.update
+);
 
 //Delete Character
-router.delete("/:id", Character.delete);
+router.delete("/:id", Validator.validateToken, Character.delete);
 
 export default router;
