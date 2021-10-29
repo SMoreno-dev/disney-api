@@ -25,15 +25,15 @@ export default class Movie {
         transaction: t,
       });
 
-      //COMMIT transaction
-      await t.commit();
-
       //If movie already exists...
       if (!movieWasCreated) {
         return res.status(403).json({
-          message: `Character with name '${name}' already exists.`,
+          message: `Movie with title '${title}' already exists.`,
         });
       }
+
+      //COMMIT transaction
+      await t.commit();
 
       //Otherwise, return movie
       res.json({
