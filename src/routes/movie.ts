@@ -16,4 +16,7 @@ router.get("/", Movie.list);
 //Update movie
 router.put("/:id", Validator.updateMovie, Movie.update);
 
+//Delete movie
+router.delete("/:id");
+
 export default router;
