@@ -29,4 +29,13 @@ export default class MovieUtil {
     }
     return where;
   }
+
+  //Builds where object for update method
+  static buildUpdateObject(requestObject: any) {
+    let obj: any = {};
+    for (const [key, value] of Object.entries(requestObject)) {
+      obj[key] = value;
+    }
+    return obj;
+  }
 }

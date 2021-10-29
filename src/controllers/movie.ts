@@ -109,4 +109,58 @@ export default class Movie {
       console.log(error);
     }
   }
+
+  //Update a movie
+  static async update(req: Request, res: Response) {
+    const { id } = req.params;
+
+    //BEGIN transaction
+    const t = await sequelize.transaction();
+
+    try {
+      //Make sure movie exists
+      const findMovie = await db.Movie.findOne({
+        where: { id },
+      });
+
+      //If movie does not exist...
+      if (!findMovie) {
+        //ROLLBACK
+        t.rollback();
+        return res.status(404).json({ message: "Movie does not exist." });
+      }
+
+      //Update movie
+      const updateMovie = await db.Movie.update(
+        MovieUtil.buildUpdateObject(req.body),
+        {
+          where: { id },
+          include: [{ model: db.Genre }, { model: db.Movie }],
+          returning: true,
+        }
+      );
+
+      //If movie wasn't updated...
+      if (!updateMovie) {
+        t.rollback();
+        return res
+          .status(500)
+          .json({ message: "Internal Server Error updating movie" });
+      }
+
+      //COMMIT
+      await t.commit();
+
+      //Return movie
+      res.json({
+        message: "Movie succesfully updated",
+        body: MovieUtil.buildMovies(updateMovie[1][0]),
+      });
+    } catch (error) {
+      //ROLLBACK
+      await t.rollback();
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
