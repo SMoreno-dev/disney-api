@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import db, { sequelize } from "../sequelize";
 import bcrypt from "bcrypt";
+import AuthUtil from "./utils/auth";
 
 export default class Auth {
   static async register(req: Request, res: Response) {
@@ -30,13 +31,15 @@ export default class Auth {
         });
       }
 
-      //If user doesn't exist, create a new one and return the data
+      //Sign user UUID and return a token
+      const token = await AuthUtil.signToken(user.uid);
+
       return res.json({
         message: `Created new user:`,
         body: {
           email: user.email,
-          token: "TODO: JWT",
           created: user.createdAt,
+          token,
         },
       });
     } catch (error) {
@@ -74,10 +77,13 @@ export default class Auth {
       if (!authenticate)
         return res.status(401).json({ message: `Wrong credentials` });
 
+      //Sign user UUID and return a token
+      const token = await AuthUtil.signToken(user.uid);
+
       //Logged in
       return res.json({
         message: `Successfully logged in`,
-        token: "TODO JWT",
+        token,
       });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });

@@ -2,9 +2,10 @@ import jwt from "jsonwebtoken";
 const secret: any = process.env.SECRET;
 
 export default class AuthUtil {
-  static signToken(userUUID: string) {
+  static async signToken(userUUID: string) {
     //Sign user uuid
-    return jwt.sign({ userUUID }, secret, (err: any, token: any) => token);
+    const token = jwt.sign({ userUUID }, secret);
+    return token;
   }
 
   static verifyToken(bearerHeader: string) {
