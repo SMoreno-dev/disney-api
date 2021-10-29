@@ -20,7 +20,7 @@ export default class Movie {
           img,
           title,
           rating,
-          created
+          created,
         },
         transaction: t,
       });
@@ -38,9 +38,8 @@ export default class Movie {
       //Otherwise, return movie
       res.json({
         message: "Movie successfully created:",
-        body: MovieUtil.buildMovies(movie)
+        body: MovieUtil.buildMovies(movie),
       });
-
     } catch (error) {
       //ROLLBACK transaction
       await t.rollback();
@@ -52,7 +51,7 @@ export default class Movie {
   //Find a single movie by id
   static async find(req: Request, res: Response) {
     try {
-      //Get a character by id
+      //Get a movie by id
       const movie = await db.Movie.findOne({
         where: { id: req.params.id },
         include: [db.Character, db.Genre],
@@ -105,7 +104,6 @@ export default class Movie {
         message: "Movie List:",
         body: movies.map(MovieUtil.buildMovies),
       });
-
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
       console.log(error);
