@@ -163,4 +163,52 @@ export default class Movie {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+
+  //Delete a movie
+  static async delete(req: Request, res: Response) {
+    const { id } = req.params;
+
+    //BEGIN transaction
+    const t = await sequelize.transaction();
+
+    try {
+      //Make sure movie exists
+      const findMovie = await db.Movie.findOne({
+        where: { id },
+      });
+
+      //If movie does not exist...
+      if (!findMovie) {
+        //ROLLBACK
+        t.rollback();
+        return res.status(404).json({ message: "Movie does not exist." });
+      }
+
+      //Delete movie
+      const deleteMovie = await db.Movie.destroy({
+        where: { id },
+      });
+
+      //If movie wasn't deleted...
+      if (!deleteMovie) {
+        t.rollback();
+        return res
+          .status(500)
+          .json({ message: "Internal Server Error deleting movie" });
+      }
+
+      //COMMIT
+      await t.commit();
+
+      //Return message
+      res.json({
+        message: `Movie '${findMovie.title}' with id of '${id}' successfully deleted.`,
+      });
+    } catch (error) {
+      //ROLLBACK
+      await t.rollback();
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
 }
