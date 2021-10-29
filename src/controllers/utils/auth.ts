@@ -12,7 +12,7 @@ export default class AuthUtil {
     return token;
   }
 
-  static async sendEmail(to: any) {
+  static sendEmail(to: any) {
     //Sendgrid API setup
     sgMail.setApiKey(sendgridAPI);
 
