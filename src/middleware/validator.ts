@@ -62,6 +62,7 @@ export default class Validator {
     next();
   }
 
+  //Movie POST endpoint middleware
   static createMovie(req: Request, res: Response, next: NextFunction) {
     const { img, title, rating, created } = req.body;
 
@@ -69,6 +70,20 @@ export default class Validator {
       return res.status(400).json({
         message:
           "Looks like some data is missing. Your request should look similar to this:",
+        requestExample: movieRequest,
+      });
+    }
+    next();
+  }
+
+  //Movie PUT endpoint middleware
+  static updateMovie(req: Request, res: Response, next: NextFunction) {
+    const { img, title, rating, created } = req.body;
+
+    if (![img, title, rating, created].some(Boolean)) {
+      return res.status(400).json({
+        message:
+          "Looks like some data is missing. Your request should include at least one of these fields:",
         requestExample: movieRequest,
       });
     }
