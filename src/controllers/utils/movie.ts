@@ -19,4 +19,14 @@ export default class MovieUtil {
         }
         return object;
     }
+
+    //Builds object if genre exists
+    static buildIncludeWhereObject(query: any) {
+        let where: any = {};
+        if(query.genre) {
+            where.id = query.genre
+        } 
+        return where;
+    }
+
 }
