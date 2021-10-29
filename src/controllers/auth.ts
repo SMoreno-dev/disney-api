@@ -34,8 +34,11 @@ export default class Auth {
       //Sign user UUID and return a token
       const token = await AuthUtil.signToken(user.uid);
 
+      //Send welcome email
+      const sentEmail = await AuthUtil.sendEmail(email);
+
       return res.json({
-        message: `Created new user:`,
+        message: `User created! We've sent you an email.`,
         body: {
           email: user.email,
           created: user.createdAt,
