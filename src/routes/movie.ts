@@ -3,6 +3,9 @@ import Movie from "../controllers/movie";
 
 const router = express.Router()
 
+//Create movie
+router.post('/');
+
 //Read movie by id
 router.get('/:id', Movie.find);
 
