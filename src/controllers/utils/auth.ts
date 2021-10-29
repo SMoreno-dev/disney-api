@@ -5,7 +5,7 @@ const sendgridAPI: any = process.env.SG_API_KEY;
 const secret: any = process.env.SECRET;
 
 export default class AuthUtil {
-  static async signToken(userUUID: string) {
+  static signToken(userUUID: string) {
     //Sign user uuid
     const token = jwt.sign({ userUUID }, secret);
     return token;
@@ -26,7 +26,7 @@ export default class AuthUtil {
 
     //Send Email
     try {
-      await sgMail.send(msg);
+      sgMail.send(msg);
     } catch (error) {
       console.log(error);
     }

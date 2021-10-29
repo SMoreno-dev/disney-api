@@ -32,10 +32,10 @@ export default class Auth {
       }
 
       //Sign user UUID and return a token
-      const token = await AuthUtil.signToken(user.uid);
+      const token = AuthUtil.signToken(user.uid);
 
       //Send welcome email
-      const sentEmail = await AuthUtil.sendEmail(email);
+      AuthUtil.sendEmail(email);
 
       return res.json({
         message: `User created! We've sent you an email.`,
