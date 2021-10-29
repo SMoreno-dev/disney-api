@@ -7,6 +7,7 @@ export default class MovieUtil {
             img: m.img,
             title: m.title,
             rating: m.rating,
+            created: m.created,
             characters: [],
             genres: []
         }
