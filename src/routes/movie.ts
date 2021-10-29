@@ -14,6 +14,6 @@ router.get("/:id", Movie.find);
 router.get("/", Movie.list);
 
 //Update movie
-router.post("/:id", Movie.update);
+router.put("/:id", Movie.update);
 
 export default router;
