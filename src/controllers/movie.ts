@@ -3,6 +3,52 @@ import db, { sequelize } from "../sequelize";
 import MovieUtil from "./utils/movie";
 
 export default class Movie {
+  //Create a movie
+  static async create(req: Request, res: Response) {
+    let { img, title, rating, created } = req.body;
+
+    //BEGIN transaction
+    const t = await sequelize.transaction();
+
+    try {
+      //Create movie
+      const [movie, movieWasCreated] = await db.Movie.findOrCreate({
+        where: {
+          title,
+        },
+        defaults: {
+          img,
+          title,
+          rating,
+          created
+        },
+        transaction: t,
+      });
+
+      //COMMIT transaction
+      await t.commit();
+
+      //If movie already exists...
+      if (!movieWasCreated) {
+        return res.status(403).json({
+          message: `Character with name '${name}' already exists.`,
+        });
+      }
+
+      //Otherwise, return movie
+      res.json({
+        message: "Movie successfully created:",
+        body: MovieUtil.buildMovies(movie)
+      });
+
+    } catch (error) {
+      //ROLLBACK transaction
+      await t.rollback();
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
   //Find a single movie by id
   static async find(req: Request, res: Response) {
     try {
@@ -59,6 +105,7 @@ export default class Movie {
         message: "Movie List:",
         body: movies.map(MovieUtil.buildMovies),
       });
+
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
       console.log(error);
