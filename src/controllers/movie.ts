@@ -81,17 +81,17 @@ export default class Movie {
       const movies = await db.Movie.findAll({
         where: name ? { title: name } : {},
         order: order ? [["id", order]] : [["id", "ASC"]],
-        include: [
-          {
-            model: db.Character,
-            required: false,
-          },
-          {
-            model: db.Genre,
-            where: MovieUtil.buildIncludeWhereObject(req.query),
-            required: false,
-          },
-        ],
+        // include: [
+        //   {
+        //     model: db.Character,
+        //     required: false,
+        //   },
+        //   {
+        //     model: db.Genre,
+        //     where: MovieUtil.buildIncludeWhereObject(req.query),
+        //     required: false,
+        //   },
+        // ],
       });
 
       //If no movies are found...
@@ -102,7 +102,11 @@ export default class Movie {
       //Otherwise, return movies
       return res.json({
         message: "Movie List:",
-        body: movies.map(MovieUtil.buildMovies),
+        body: movies.map((m: any) => ({
+          img: m.img,
+          title: m.title,
+          created: m.created,
+        })),
       });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });

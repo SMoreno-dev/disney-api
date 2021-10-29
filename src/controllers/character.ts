@@ -83,13 +83,13 @@ export default class Character {
       //Look for character matching queries
       const characters = await db.Character.findAll({
         where: CharacterUtil.buildListWhereObject(req.query),
-        include: [
-          {
-            model: db.Movie,
-            where: CharacterUtil.buildIncludeWhereObject(req.query),
-            required: false,
-          },
-        ],
+        // include: [
+        //   {
+        //     model: db.Movie,
+        //     where: CharacterUtil.buildIncludeWhereObject(req.query),
+        //     required: false,
+        //   },
+        // ],
       });
 
       //If no characters are found...
@@ -100,7 +100,10 @@ export default class Character {
       //Otherwise, return characters
       return res.json({
         message: "Character List:",
-        body: characters.map(CharacterUtil.buildCharacters),
+        body: characters.map((c: any) => ({
+          img: c.img,
+          name: c.name,
+        })),
       });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
