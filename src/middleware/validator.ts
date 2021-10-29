@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
 const characterRequest = {
   img: "https://static.wikia.nocookie.net/disney/images/8/8a/Profile_-_Ariel.jpg",
@@ -87,6 +88,38 @@ export default class Validator {
         requestExample: movieRequest,
       });
     }
+    next();
+  }
+
+  static validateToken(req: Request, res: Response, next: NextFunction) {
+    //jwt secret
+    const secret: any = process.env.SECRET;
+
+    //Auth Header
+    const bearerHeader: any = req.headers["authorization"];
+
+    //If no header...
+    if (bearerHeader === undefined) {
+      return res.status(403).json({
+        message: "A token is required to proceed",
+      });
+    }
+
+    //Split bearer header
+    const bearer = bearerHeader.split(" ");
+
+    //Select token
+    const bearerToken = bearer[1];
+
+    //Verify token
+    jwt.verify(bearerToken, secret, (err: any) => {
+      if (err) {
+        return res.status(403).json({
+          message: "Something went wrong. Maybe your token is invalid?",
+        });
+      }
+    });
+
     next();
   }
 }

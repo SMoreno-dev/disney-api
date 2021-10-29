@@ -7,14 +7,4 @@ export default class AuthUtil {
     const token = jwt.sign({ userUUID }, secret);
     return token;
   }
-
-  static async verifyToken(bearerHeader: string) {
-    //Split bearer header
-    const bearer = bearerHeader.split(" ");
-    //Select token
-    const bearerToken = bearer[1];
-    //Verify token
-    const authData = jwt.verify(bearerToken, secret);
-    return authData;
-  }
 }
