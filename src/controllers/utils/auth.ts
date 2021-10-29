@@ -8,16 +8,13 @@ export default class AuthUtil {
     return token;
   }
 
-  static verifyToken(bearerHeader: string) {
+  static async verifyToken(bearerHeader: string) {
     //Split bearer header
     const bearer = bearerHeader.split(" ");
     //Select token
     const bearerToken = bearer[1];
     //Verify token
-    return jwt.verify(
-      bearerToken,
-      secret,
-      (err: any, authData: any) => authData
-    );
+    const authData = jwt.verify(bearerToken, secret);
+    return authData;
   }
 }
