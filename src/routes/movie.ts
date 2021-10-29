@@ -13,4 +13,7 @@ router.get("/:id", Movie.find);
 //Read movie list
 router.get("/", Movie.list);
 
+//Update movie
+router.post("/:id", Movie.update);
+
 export default router;
