@@ -6,4 +6,7 @@ const router = express.Router()
 //Read movie by id
 router.get('/:id', Movie.find);
 
+//Read movie list
+router.get('/');
+
 export default router;
