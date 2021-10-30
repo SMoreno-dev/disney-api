@@ -1,6 +1,6 @@
-import app from "../src/server";
 import { expect } from "chai";
 import request from "supertest";
+import app from "../src/server";
 
 //Auth data for token
 const email = process.env.EMAIL;
@@ -14,20 +14,16 @@ const movieData = {
   created: "1999-12-07",
 };
 
+//Hardcoded token for testing
+let token: any =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVVVJRCI6IjJiYzQ0ZmU4LTA1NWQtNGRiNi1hYWU2LTkyZjgxNTM1NDVlMCIsImlhdCI6MTYzNTYyNzM4MH0.07m400edD3YIIz31VVb6X_m3HHlBSVfcuCDSc5j1EjE";
+
 //Tests
 describe("Movie API tests", function () {
-  let token: any = null;
-
   before((done) => {
     app.on("app_started", () => {
-      request(app)
-        .post("/auth/register")
-        .send({ email, password })
-        .end((err, res) => {
-          if (err) console.log(err);
-          token = res.body.token;
-          done();
-        });
+      console.log("Begin testing");
+      done();
     });
   });
 

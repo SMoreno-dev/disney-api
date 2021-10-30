@@ -32,17 +32,18 @@ app.use("/characters", characterRoute);
 app.use("/movies", movieRoute);
 
 //Sync and preload
-(async (): Promise<void> => {
+const syncData = async (): Promise<void> => {
   const sync = await db.sequelize.sync({ force: true });
   if (sync !== undefined) {
     await loadGenres(db.Genre);
     await loadMovies(db.Movie);
     await loadCharacters(db.Character);
   }
-})();
+};
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server runing on ${port}`);
+  await syncData();
   app.emit("app_started");
 });
 
