@@ -12,7 +12,10 @@ Features include:
 * Creating and Deleting associations between genres and movies
 * Integration tests using Supertest + Mocha and Chai
 
->You can find a Swagger description of the endpoints [here](https://app.swaggerhub.com/apis/SMoreno-dev/disney-api/1.0)
+## API Documentation
+
+You can find a description of each endpoint and schemas including examples, using Swagger, [here.](https://app.swaggerhub.com/apis/SMoreno-dev/disney-api/1.0)
+
 
 ## Dependencies
 
