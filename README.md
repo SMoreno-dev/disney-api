@@ -90,7 +90,20 @@ npm install
 
 It is very important that you keep track of the various .env variables, such as the server [PORT](https://github.com/SMoreno-dev/disney-api/blob/71c4d1b0592281a590fbbfd819e2619a4475a8ce/src/server.ts#L18). You may change these env variables as you see fit.
 
-It is also very important you set up your database connection properly in [index.js](https://github.com/SMoreno-dev/disney-api/blob/71c4d1b0592281a590fbbfd819e2619a4475a8ce/src/sequelize/index.ts#L12).
+If you wish to set up an .env file, you should use these variable names:
+
+```
+PORT = 3000
+DB_URL = "postgres://postgres:password@localhost:5432/disney"
+SG_API_KEY = "yourSendgridApiKey"
+SECRET = "jwtSecret"
+EMAIL = "yourSendgridEmail"
+DISNEY_TOKEN = "yourToken" // This is used in mocha tests to bypass the jwt middleware
+
+```
+
+
+It is also very important you set up your database connection properly in [index.ts](https://github.com/SMoreno-dev/disney-api/blob/71c4d1b0592281a590fbbfd819e2619a4475a8ce/src/sequelize/index.ts#L12).
 
 ## Scripts
 
