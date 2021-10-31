@@ -1,8 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import preload from "../preload/character";
-
-//Models type
-type Models = { [key: string]: any };
+import { Models } from "../../types/sequelize";
 
 export default (sequelize: any) => {
   //Extend Model class
