@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { RequestWithToken, CharacterListRequest } from "../types/request";
 import jwt from "jsonwebtoken";
 
 const characterRequest = {
@@ -36,7 +37,11 @@ export default class Validator {
   }
 
   //Character POST endpoint middleware
-  static createCharacter(req: Request, res: Response, next: NextFunction) {
+  static createCharacter(
+    req: CharacterListRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     const { img, name, age, weight, story } = req.body;
 
     if (![img, name, age, weight, story].every(Boolean)) {
@@ -50,7 +55,11 @@ export default class Validator {
   }
 
   //Character PUT endpoint middleware
-  static updateCharacter(req: Request, res: Response, next: NextFunction) {
+  static updateCharacter(
+    req: CharacterListRequest,
+    res: Response,
+    next: NextFunction
+  ) {
     const { img, name, age, weight, story } = req.body;
 
     if (![img, name, age, weight, story].some(Boolean)) {
@@ -91,7 +100,11 @@ export default class Validator {
     next();
   }
 
-  static validateToken(req: Request, res: Response, next: NextFunction) {
+  static validateToken(
+    req: RequestWithToken,
+    res: Response,
+    next: NextFunction
+  ) {
     //jwt secret
     const secret: any = process.env.SECRET;
 
