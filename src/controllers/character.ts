@@ -83,13 +83,6 @@ export default class Character {
       //Look for character matching queries
       const characters = await db.Character.findAll({
         where: CharacterUtil.buildListWhereObject(req.query),
-        // include: [
-        //   {
-        //     model: db.Movie,
-        //     where: CharacterUtil.buildIncludeWhereObject(req.query),
-        //     required: false,
-        //   },
-        // ],
       });
 
       //If no characters are found...
