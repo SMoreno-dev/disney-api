@@ -14,7 +14,7 @@ Features include:
 
 ## API Documentation
 
-You can find a description of each endpoint and schemas including examples, using Swagger, [here.](https://app.swaggerhub.com/apis/SMoreno-dev/disney-api/1.0)
+You can find a description of each endpoint and schemas including examples via Swagger [here.](https://app.swaggerhub.com/apis/SMoreno-dev/disney-api/1.0)
 
 
 ## Dependencies
