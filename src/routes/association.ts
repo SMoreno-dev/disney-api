@@ -8,6 +8,10 @@ const router = express.Router();
 router.post("/character-movie", Validator.validateToken, Association.addMovie);
 
 //Remove a movie associated to a character
-router.delete("/character-movie", Validator.validateToken);
+router.delete(
+  "/character-movie",
+  Validator.validateToken,
+  Association.deleteMovie
+);
 
 export default router;
