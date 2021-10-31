@@ -6,6 +6,7 @@ import cors from "cors";
 import authRoute from "./routes/auth";
 import characterRoute from "./routes/character";
 import movieRoute from "./routes/movie";
+import associationRoute from "./routes/association";
 
 //Sequelize
 import db from "./sequelize/index";
@@ -30,6 +31,9 @@ app.use("/characters", characterRoute);
 
 //Movie Route
 app.use("/movies", movieRoute);
+
+//Association Route
+app.use("/association", associationRoute);
 
 //Sync and preload
 const syncData = async (): Promise<void> => {
