@@ -24,12 +24,10 @@ export default class Association {
       const associate = await char.addMovie(movie, { transaction: t });
 
       if (!associate)
-        return res
-          .status(500)
-          .json({
-            message:
-              "Internal Error creating association. Maybe it was already associated?",
-          });
+        return res.status(500).json({
+          message:
+            "Internal Error creating association. Maybe it was already associated?",
+        });
 
       //COMMIT
       await t.commit();
@@ -109,18 +107,58 @@ export default class Association {
 
       //Association failed
       if (!associate)
-        return res
-          .status(500)
-          .json({
-            message:
-              "Internal Error creating association. Maybe it was already associated?",
-          });
+        return res.status(500).json({
+          message:
+            "Internal Error creating association. Maybe it was already associated?",
+        });
 
       //COMMIT
       await t.commit();
 
       return res.json({
         message: "Successfully associated genre to movie",
+      });
+    } catch (error) {
+      //ROLLBACK
+      await t.rollback();
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  static async deleteGenre(req: Request, res: Response) {
+    const { movieId, genreId } = req.query;
+
+    //BEGIN
+    const t = await sequelize.transaction();
+
+    try {
+      //Check if genre and movie exist
+      const check = await AssociationUtil.checkForGenreAndMovie(
+        movieId,
+        genreId
+      );
+
+      //Movie and/or genre not found
+      if (check.notFound) {
+        return res.status(404).json({ message: check.notFound });
+      }
+
+      //Remove genre from movie
+      const { movie, genre } = check;
+      const associate = await movie.removeGenre(genre, { transaction: t });
+
+      if (!associate)
+        return res.status(500).json({
+          message:
+            "Internal Error removing association. Maybe that genre wasn't associated?",
+        });
+
+      //COMMIT
+      await t.commit();
+
+      return res.json({
+        message: "Successfully removed genre association from movie",
       });
     } catch (error) {
       //ROLLBACK
