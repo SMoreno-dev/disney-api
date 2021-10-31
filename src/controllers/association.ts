@@ -26,7 +26,10 @@ export default class Association {
       if (!associate)
         return res
           .status(500)
-          .json({ message: "Internal Error creating association" });
+          .json({
+            message:
+              "Internal Error creating association. Maybe it was already associated?",
+          });
 
       //COMMIT
       await t.commit();
@@ -63,15 +66,61 @@ export default class Association {
       const associate = await char.removeMovie(movie, { transaction: t });
 
       if (!associate)
-        return res
-          .status(500)
-          .json({ message: "Internal Error removing association" });
+        return res.status(500).json({
+          message:
+            "Internal Error removing association. Maybe that movie wasn't associated?",
+        });
 
       //COMMIT
       await t.commit();
 
       return res.json({
         message: "Successfully removed movie association from character",
+      });
+    } catch (error) {
+      //ROLLBACK
+      await t.rollback();
+      console.log(error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  }
+
+  static async addGenre(req: Request, res: Response) {
+    const { movieId, genreId } = req.query;
+
+    //BEGIN
+    const t = await sequelize.transaction();
+
+    try {
+      //Check if genre and movie exist
+      const check = await AssociationUtil.checkForGenreAndMovie(
+        movieId,
+        genreId
+      );
+
+      //Genre or movie not found
+      if (check.notFound) {
+        return res.status(404).json({ message: check.notFound });
+      }
+
+      //Add genre to movie
+      const { movie, genre } = check;
+      const associate = await movie.addGenre(genre, { transaction: t });
+
+      //Association failed
+      if (!associate)
+        return res
+          .status(500)
+          .json({
+            message:
+              "Internal Error creating association. Maybe it was already associated?",
+          });
+
+      //COMMIT
+      await t.commit();
+
+      return res.json({
+        message: "Successfully associated genre to movie",
       });
     } catch (error) {
       //ROLLBACK

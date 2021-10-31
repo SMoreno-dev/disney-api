@@ -15,6 +15,6 @@ router.delete(
 );
 
 //Associate a genre to a movie
-router.post("/movie-genre", Validator.validateToken);
+router.post("/movie-genre", Validator.validateToken, Association.addGenre);
 
 export default router;
