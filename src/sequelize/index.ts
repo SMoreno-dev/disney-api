@@ -5,15 +5,14 @@ import Character from "./models/character";
 import Movie from "./models/movie";
 import Genre from "./models/genre";
 
+//Types
+import { Database, KeyOfDB } from "../types/sequelize";
+
 //Env var
 const DB_URL = process.env.DB_URL;
 
 //Setting up db connection
 export const sequelize = new Sequelize(`${DB_URL}`);
-
-//Db types
-type Database = { [key: string]: any };
-type KeyOfDB = Extract<keyof Database, string>;
 
 //Create Models
 const db: Database = {
