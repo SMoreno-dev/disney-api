@@ -81,17 +81,13 @@ export default class Movie {
       const movies = await db.Movie.findAll({
         where: name ? { title: name } : {},
         order: order ? [["id", order]] : [["id", "ASC"]],
-        // include: [
-        //   {
-        //     model: db.Character,
-        //     required: false,
-        //   },
-        //   {
-        //     model: db.Genre,
-        //     where: MovieUtil.buildIncludeWhereObject(req.query),
-        //     required: false,
-        //   },
-        // ],
+        include: [
+          {
+            model: db.Genre,
+            where: MovieUtil.buildIncludeWhereObject(req.query),
+            required: false,
+          },
+        ],
       });
 
       //If no movies are found...
