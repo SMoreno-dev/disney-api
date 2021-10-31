@@ -90,7 +90,13 @@ npm install
 
 It is very important that you keep track of the various .env variables, such as the server [PORT](https://github.com/SMoreno-dev/disney-api/blob/71c4d1b0592281a590fbbfd819e2619a4475a8ce/src/server.ts#L18). You may change these env variables as you see fit.
 
-If you wish to set up an .env file, you should use these variable names:
+If you wish to set up an .env file, you should first:
+
+```
+npm i dotenv
+```
+
+Then, set up your .env file using these variable names:
 
 ```
 PORT = 3000
