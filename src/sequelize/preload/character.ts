@@ -8,7 +8,7 @@ const characterData = [
     weight: 75,
     story:
       "A former street rat from the city of Agrabah, Aladdin spent much of his youth scraping for food and ducking guards with his monkey sidekick Abu.",
-    movies: ["Aladdin"],
+    movies: ["Aladdin", "Aladdin 2"],
   },
   {
     img: "https://upload.wikimedia.org/wikipedia/en/9/94/Simba_%28_Disney_character_-_adult%29.png",
@@ -17,7 +17,7 @@ const characterData = [
     weight: 190,
     story:
       "The son of Mufasa and Sarabi, who was destined to rule the Pride Lands, as king. When Mufasa was murdered by his treacherous brother, Scar, Simba was exiled from the Pride Lands after his uncle blamed him for his father's death.",
-    movies: ["The Lion King"],
+    movies: ["The Lion King", "The Lion King 2"],
   },
   {
     img: "https://upload.wikimedia.org/wikipedia/en/e/e1/Snow_white_disney.png",

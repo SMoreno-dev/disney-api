@@ -29,6 +29,20 @@ const movieData = [
     rating: 5,
     genres: ["Comedy", "Adventure"],
   },
+  {
+    img: "http://gnula.nu/wp-content/uploads/2015/09/Aladdin_2_poster_usa.jpg",
+    title: "Aladdin 2",
+    created: "1994-05-20",
+    rating: 3,
+    genres: ["Comedy", "Musical", "Romance", "Adventure", "Fantasy"],
+  },
+  {
+    img: "https://static.wikia.nocookie.net/disney/images/f/fc/The_Lion_King_2_Simba%27s_Pride.png",
+    title: "The Lion King 2",
+    created: "1998-10-26",
+    rating: 4,
+    genres: ["Comedy", "Musical", "Romance", "Adventure", "Drama"],
+  },
 ];
 
 export default async (model: any) => {
